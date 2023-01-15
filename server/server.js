@@ -1,7 +1,8 @@
 import express from "express";
 const app = express();
+import path from "path";
 
-// app.use(express.json());
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
