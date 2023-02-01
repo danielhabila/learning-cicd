@@ -29,13 +29,15 @@ function App() {
   }, []);
 
   async function collectQuote() {
-    await Axios.get("http://localhost:3001/readAllQuotes").then((response) => {
-      setListOfQuotes(response.data);
-    });
+    await Axios.get("http://localhost:3001/api/readAllQuotes").then(
+      (response) => {
+        setListOfQuotes(response.data);
+      }
+    );
   }
   // Generating a random quote
   async function aRandomQuote() {
-    await Axios.get("http://localhost:3001/getRandom").then((response) => {
+    await Axios.get("http://localhost:3001/api/getRandom").then((response) => {
       setRandomQuote(response.data);
     });
   }
@@ -43,7 +45,7 @@ function App() {
   const handleSubmit = (e) => {
     inputRef.current.value = "";
     inputRef2.current.value = "";
-    Axios.post("http://localhost:3001/add", {
+    Axios.post("http://localhost:3001/api/add", {
       author: addAuthor,
       quote: addQuote,
     }).then((response) => {
@@ -63,7 +65,7 @@ function App() {
 
   // The .put method is used to update. The object we pass is the called the "body" object which we can tap into in the backend
   const updateDBitem = (id) => {
-    Axios.put("http://localhost:3001/update", {
+    Axios.put("http://localhost:3001/api/update", {
       id: id,
       updateQuote: updateQuote,
       updateAuthor: updateAuthor,
@@ -79,7 +81,7 @@ function App() {
   };
 
   const deleteDBitem = async (id) => {
-    await Axios.delete(`http://localhost:3001/delete/${id}`).then(() => {
+    await Axios.delete(`http://localhost:3001/api/delete/${id}`).then(() => {
       setListOfQuotes(
         listOfQuotes.filter((value) => {
           return value._id !== id;
